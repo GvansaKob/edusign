@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // database/migrations/xxxx_xx_xx_create_seances_table.php
-        Schema::create('seances', function (Blueprint $table) {
+        Schema::create('signatures', function (Blueprint $table) {
             $table->id();
+            $table->boolean('statut');
             $table->dateTime('date');
-            $table->string('lieu');
+
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('seance_id')->constrained('seances')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
