@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { io } from "socket.io-client";
+import ioClient from "socket.io-client"; 
 import QRCodeDisplay from "../components/QRCodeDisplay";
 import AttendeesList from "../components/AttendeesList";
 
@@ -9,7 +9,7 @@ interface Attendee {
   email: string;
 }
 
-const socket = io("http://localhost:3000");
+const socket = ioClient("http://localhost:3000"); 
 
 export default function Home() {
   const [attendees, setAttendees] = useState<Attendee[]>([]);

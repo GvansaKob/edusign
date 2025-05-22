@@ -1,13 +1,14 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import React from 'react';
+import Header from './components/Header';
 
-export default function App() {
+const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <>
+      <Header />
+      <main className="p-4">
+      </main>
+    </>
   );
-}
+};
+
+export default App;
