@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import { getCoursSelonHeure } from './components/CoursDuJour';
 import CardCours from './components/CardCours';
+import AttendanceDashboard from './components/AttendanceDashboard'; // 👈 importe le composant
 
 const App: React.FC = () => {
   const { actuel, suivant } = getCoursSelonHeure();
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         </aside>
 
         <main className="w-[65%] p-4">
+          <AttendanceDashboard /> {/* 👈 intégration ici */}
         </main>
       </div>
     </div>
