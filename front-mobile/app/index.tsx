@@ -1,11 +1,17 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Image source={require('../assets/images/logo.png')} style={styles.logo} />
 
-      <TouchableOpacity style={styles.button} onPress={() => alert('Naviguer vers la page de signature')}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push('/sign')}
+      >
         <Text style={styles.buttonText}>Signer</Text>
       </TouchableOpacity>
     </View>
