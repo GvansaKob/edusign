@@ -1,14 +1,20 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useState } from 'react';
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 export default function SignScreen() {
+  const router = useRouter();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
   const handleSign = () => {
-    // Tu pourras stocker ces infos dans un contexte ou les passer via params
-    router.push('/signature');
+    router.push({
+      pathname: '/signature',
+      params: {
+        firstName,
+        lastName,
+      }
+    });
   };
 
   return (
@@ -17,6 +23,7 @@ export default function SignScreen() {
 
       <TextInput
         placeholder="Prénom"
+        placeholderTextColor="#8888"
         style={styles.input}
         value={firstName}
         onChangeText={setFirstName}
@@ -24,6 +31,7 @@ export default function SignScreen() {
 
       <TextInput
         placeholder="Nom"
+        placeholderTextColor="#8888"
         style={styles.input}
         value={lastName}
         onChangeText={setLastName}
@@ -37,6 +45,7 @@ export default function SignScreen() {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: '#fff',
