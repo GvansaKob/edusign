@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import { useRouter } from "expo-router"; // 🚨 Assure-toi que 'expo-router' est installé
 
 export default function ScanScreen() {
+  const router = useRouter(); // navigation
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState(false);
   const [scannedData, setScannedData] = useState<string | null>(null);
@@ -10,7 +12,7 @@ export default function ScanScreen() {
   const handleBarCodeScanned = ({ data }: { data: string }) => {
     setScanned(true);
     setScannedData(data);
-    alert(`QR Code scanné : ${data}`);
+    alert(`QR Code Validé ✅`);
   };
 
   if (!permission) {
@@ -37,12 +39,15 @@ export default function ScanScreen() {
           style={styles.camera}
           onBarcodeScanned={handleBarCodeScanned}
           barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
-        />
+        >
+          <View style={styles.overlay}>
+            <View style={styles.qrFrame} />
+          </View>
+        </CameraView>
       ) : (
         <View style={styles.resultContainer}>
-          <Text style={styles.resultText}>Code scanné : {scannedData}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => setScanned(false)}>
-            <Text style={styles.buttonText}>Scanner à nouveau</Text>
+          <TouchableOpacity style={styles.homeButton} onPress={() => router.push("/")}>
+            <Text style={styles.buttonText}>Revenir à l'accueil</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -58,6 +63,19 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  qrFrame: {
+    width: 250,
+    height: 250,
+    borderColor: "#ffffff",
+    borderWidth: 2,
+    borderRadius: 8,
+    backgroundColor: "transparent",
+  },
   resultContainer: {
     flex: 1,
     justifyContent: "center",
@@ -72,6 +90,13 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#FF7F50",
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  homeButton: {
+    backgroundColor: "#6A5ACD",
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: 8,
